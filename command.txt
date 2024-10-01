@@ -1,0 +1,140 @@
+    1  sudo apt-get update -y && sudo apt-get upgrade -y
+    2  sudo apt-get install nginx php php-fpm php-curl php-mysql php-gd php-mbstring php-xml php-imagick php-zip php-xmlrpc -y
+    3  sudo cp /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.i
+    4* 
+    5* 
+    6  sudo apt-get update -y
+    7  sudo apt-get upgrade -y
+    8  sudo apt-get install nginx php php-fpm php-curl php-mysql php-gd php-mbstring php-xml php-imagick php-zip php-xmlrpc -y
+    9  sudo cd /etc/php/7.4/fpm/
+   10  cd /etc/php/7.4/fpm/
+   11  cd /etc/php
+   12  ls
+   13  cd
+   14  sudo cp /etc/php/8.1/fpm/php.ini /etc/php/8.1/fpm/php.ini.bak
+   15  sudo sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php/8.1/fpm/php.ini
+   16  sudo sed -i 's/upload_max_filesize = .*/upload_max_filesize = 128M/' /etc/php/8.1/fpm/php.ini
+   17  sudo sed -i 's/post_max_size = .*/post_max_size = 128M/' /etc/php/8.1/fpm/php.ini
+   18  sudo sed -i 's/memory_limit = .*/memory_limit = 512M/' /etc/php/8.1/fpm/php.ini
+   19  sudo sed -i 's/max_execution_time = .*/max_execution_time = 120/' /etc/php/8.1/fpm/php.ini
+   20  sudo systemctl restart php8.1-fpm
+   21  cd /var/www/html
+   22  ls
+   23  sudo wget https://wordpress.org/latest.tar.gz
+   24  sudo tar -zxvf latest.tar.gz
+   25  ls
+   26  rm -rf latest.tar.gz 
+   27  ls
+   28  sudo rm -rf latest.tar.gz 
+   29  ls
+   30  cd wordpress/
+   31  ls
+   32  pwd
+   33  sudo vim wp-config-sample.php 
+   34  cd 
+   35  sudo chown -R www-data:www-data /var/www/html/wordpress
+   36  sudo chmod -R 755 /var/www/html/wordpress
+   37  sudo tee /etc/nginx/conf.d/wordpress.conf > /dev/null <<EOF
+server {
+    listen 80;
+    root /var/www/html/wordpress;
+    index  index.php index.html index.htm;
+    client_max_body_size 500M;
+    
+    location / {
+        try_files \$uri \$uri/ /index.php?\$args;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+EOF
+
+   38* 
+   39  sud systemctl restart nginx
+   40  sudo systemctl restart nginx
+   41  sudo systemctl status nginx
+   42  sudo systemctl status apache2
+   43  sudo systemctl status nginx
+   44  sudo systemctl restart nginx
+   45  cd /var/www/html/wordpress/
+   46  ls
+   47  sudo mv wordpress/wp-config-sample.php wordpress/wp-config.php
+   48  cd ..
+   49  sudo mv wordpress/wp-config-sample.php wordpress/wp-config.php
+   50  ls
+   51  cd wordpress/
+   52  ls
+   53  sudo systemctl restart nginx
+   54  cd /etc/nginx/conf.d
+   55  ls
+   56  sudo vim wordpress.conf 
+   57  sudo tee /etc/nginx/conf.d/wordpress.conf > /dev/null << 'EOF'
+server {
+    listen 80;
+    root /var/www/html/wordpress;
+    index index.php index.html index.htm;
+    client_max_body_size 500M;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+EOF
+
+   58  cd /etc
+   59  ls
+   60  sudo apt disable apache2
+   61  sudo systemctl disable apache2
+   62  sudo apt remove apache2
+   63  sudo purge apache2
+   64  sudo apt purge apache2
+   65  sudo apt autoremove 
+   66  sudo systemctl status apache2
+   67  sudo systemctl restart nginx
+   68  sudo systemctl status nginx
+   69  pwd
+   70  sudo vim /etc/nginx/sites-available/wordpress
+   71  sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+   72  sudo nginx -t 
+   73  sudo systemctl restart nginx
+   74  sudo systemctl status nginx
+   75  cd
+   76  ls
+   77  sudo vim /var/www/html/wordpress/
+   78  sudo vim /var/www/html/wordpress/wp-config.php
+   79  sudo systemctl restart nginx
+   80  sudo systemctl status nginx
+   81  sudo vim /etc/nginx/sites-available/wordpress
+   82  sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+   83  rm -rf /etc/nginx/sites-enabled/wordpress
+   84  sudo rm -rf /etc/nginx/sites-enabled/wordpress
+   85  sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+   86  sudo systemctl restart nginx
+   87  sudo systemctl status nginx
+   88  git init
+   89  git add .
+   90  git commit -m "Initial commit for WordPress project"
+   91  git remote add origin https://github.com/la-belle-femme/wordpress-royce.git
+   92  git push -u origin main
+   93  git push -u origin master
+   94  git rm --cached .vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/node
+   95  git commit -m "Remove large files"
+   96  git push
+   97  sudo apt install git-lfs
+   98  git lfs install
+   99  git lfs track ".vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/node"
+  100  git add .gitattributes
+  101  git commit -m "Track large files with Git LFS"
+  102  git push origin master
+  103  history > command.txt
